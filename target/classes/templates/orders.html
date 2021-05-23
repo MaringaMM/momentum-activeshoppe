@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Order CRUD</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div th:if="${not #lists.isEmpty(orders)}">
+        <h2>Order List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Customer Name</th>
+                <th>Required Date</th>
+                <th>Ship Address</th>
+                <th>Ship Via</th>
+                <th>Shipped Date</th>
+                <th>Products</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"><a href="/product/${product.id}">Id</a></td>
+                <td th:text="${order.customerName}">Customer Name</td>
+                <td th:text="${order.requiredDate}">Required Date</td>
+                <td th:text="${order.shipAddress}">Ship Address</td>
+                <td th:text="${order.shipVia}">Ship Via</td>
+                <td th:text="${order.shippedDate}">Ship Date</td>
+                <td>
+                    <span th:each="orderProduct : ${order.orderProducts}"
+                          th:text="${orderProduct.quantity+' '+orderProduct.product.name}+','"></span>
+                </td>
+                <td><a th:href="${ '/order/' + order.id}">View</a></td>
+                <td><a th:href="${ '/order/edit/' + order.id}">Edit</a></td>
+                <td><a th:href="${ '/order/delete/' + order.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
